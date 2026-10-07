@@ -1,0 +1,72 @@
+server:
+  port: ${PORT:8081}
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: renodesign-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 25MB
+      max-request-size: 30MB
+
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/renodesign}
+    username: ${DATABASE_USERNAME:chaimasaadallah}
+    password: ${DATABASE_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+# Security & JWT
+app:
+  jwt:
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+    expiration-ms: 86400000 # 24 hours
+
+  # Storage Configuration
+  storage:
+    provider: ${STORAGE_PROVIDER:local} # local | s3
+    upload-dir: ${UPLOAD_DIR:uploads}
+    base-url: ${STORAGE_BASE_URL:http://localhost:8081/uploads}
+    s3:
+      endpoint: ${STORAGE_ENDPOINT:}
+      access-key: ${STORAGE_ACCESS_KEY:}
+      secret-key: ${STORAGE_SECRET_KEY:}
+      bucket: ${STORAGE_BUCKET:renodesign}
+      region: ${STORAGE_REGION:us-east-1}
+
+  # AI Provider Configuration
+  ai:
+    provider: ${AI_PROVIDER:stability} # stability | replicate | openai | gemini
+    api-key: ${AI_API_KEY:}
+    api-url: ${AI_API_URL:}
+    model: ${AI_MODEL:}
+    timeout-seconds: ${AI_TIMEOUT_SECONDS:120}
+
+# Swagger / OpenAPI
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha

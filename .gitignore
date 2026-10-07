@@ -1,0 +1,28 @@
+# Environment variables
+.env
+*.env
+backend/.env
+mobile/.env
+
+# Mac system files
+.DS_Store
+
+# Java / Spring Boot / Maven
+backend/target/
+backend/uploads/
+*.class
+*.jar
+*.war
+
+# Flutter / Dart
+mobile/.dart_tool/
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/pubspec.lock
+
+# IDE files
+.idea/
+*.iml
+.vscode/
